@@ -69,6 +69,7 @@ jobs:
             # Deploy web-client
             if [ "$CHANGED_WEB_CLIENT" == "true" ]; then
               echo "Deploying web-client..."
+              rm -rf .turbo apps/web-client/.next
               npx turbo build --filter=web-client
               cp -r apps/web-client/public apps/web-client/.next/standalone/apps/web-client/public
               cp -r apps/web-client/.next/static apps/web-client/.next/standalone/apps/web-client/.next/static
@@ -79,6 +80,7 @@ jobs:
             # Deploy cms
             if [ "$CHANGED_CMS" == "true" ]; then
               echo "Deploying cms..."
+              rm -rf .turbo apps/cms/.next
               npx turbo build --filter=cms
               cp -r apps/cms/public apps/cms/.next/standalone/apps/cms/public
               cp -r apps/cms/.next/static apps/cms/.next/standalone/apps/cms/.next/static
