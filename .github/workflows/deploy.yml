@@ -62,7 +62,7 @@ jobs:
             git pull origin main
             npm ci
 
-            # Inject ENV files từ GitHub Secrets
+            # Inject ENV files from GitHub Secrets
             echo "$WEB_CLIENT_ENV" > apps/web-client/.env.production
             echo "$CMS_ENV" > apps/cms/.env.production
 
