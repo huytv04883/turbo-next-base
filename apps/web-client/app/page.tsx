@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <h1>Web client page</h1>
+    <h1>This page is Web client</h1>
   );
 }
