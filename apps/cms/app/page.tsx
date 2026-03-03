@@ -1,5 +1,6 @@
 export default function Home() {
+  const time = new Date().getHours();
   return (
-    <h1>This Page is Cms</h1>
+    <h1>Cms new verison deploy at {time}</h1>
   );
 }

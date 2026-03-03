@@ -1,5 +1,6 @@
 export default function Home() {
+  const time = new Date().getDate();
   return (
-    <h1>This page is Web client</h1>
+    <h1>Web client new verison deploy at {time}</h1>
   );
 }
