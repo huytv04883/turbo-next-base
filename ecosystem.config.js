@@ -1,12 +1,12 @@
 module.exports = {
   apps: [
     {
-      name: 'desktop-app',
+      name: 'web-client',
       script: './apps/desktop-app/.next/standalone/apps/desktop-app/server.js',
       env: {
         NODE_ENV: 'production',
         APP_ENV: 'production',
-        PORT: 3001,
+        PORT: 3002,
       },
     },
     {
@@ -15,7 +15,7 @@ module.exports = {
       env: {
         NODE_ENV: 'production',
         APP_ENV: 'production',
-        PORT: 3002,
+        PORT: 3000,
       },
     },
   ],

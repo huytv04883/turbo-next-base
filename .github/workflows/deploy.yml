@@ -44,30 +44,30 @@ jobs:
     needs: detect-changes
     if: |
       needs.detect-changes.outputs.web-client == 'true' ||
-      needs.detect-changes.outputs.cms == 'true' ||
+      needs.detect-changes.outputs.cms == 'true'
 
     steps:
-      - name: SSH và deploy
+      - name: SSH and deploy
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          envs: CHANGED_DESKTOP_APP,CHANGED_CMS,CHANGED_WEB_CLIENT,DESKTOP_APP_ENV,CMS_ENV,WEB_CLIENT_ENV
+          envs: CHANGED_WEB_CLIENT,CHANGED_CMS,WEB_CLIENT_ENV,CMS_ENV
           command_timeout: 30m
           script: |
-            cd /var/www/myapp
+            cd /root/myapp
 
             echo "Pulling latest code..."
             git pull origin main
             npm ci
 
             # Inject ENV files từ GitHub Secrets
-            echo "$DESKTOP_APP_ENV" > apps/web-client/.env.production
+            echo "$WEB_CLIENT_ENV" > apps/web-client/.env.production
             echo "$CMS_ENV" > apps/cms/.env.production
 
             # Deploy web-client
-            if [ "$CHANGED_DESKTOP_APP" == "true" ]; then
+            if [ "$CHANGED_WEB_CLIENT" == "true" ]; then
               echo "Deploying web-client..."
               npx turbo build --filter=web-client
               cp -r apps/web-client/public apps/web-client/.next/standalone/apps/web-client/public
@@ -86,10 +86,9 @@ jobs:
               echo "cms deployed!"
             fi
 
-            echo "Deploy done"
+            echo "Deploy done!"
         env:
-          CHANGED_DESKTOP_APP: ${{ needs.detect-changes.outputs.web-client }}
+          CHANGED_WEB_CLIENT: ${{ needs.detect-changes.outputs.web-client }}
           CHANGED_CMS: ${{ needs.detect-changes.outputs.cms }}
-          DESKTOP_APP_ENV: ${{ secrets.DESKTOP_APP_ENV_PRODUCTION }}
-          CMS_ENV: ${{ secrets.CMS_ENV_PRODUCTION }}
           WEB_CLIENT_ENV: ${{ secrets.WEB_CLIENT_ENV_PRODUCTION }}
+          CMS_ENV: ${{ secrets.CMS_ENV_PRODUCTION }}
