@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'web-client',
-      script: './apps/desktop-app/.next/standalone/apps/desktop-app/server.js',
+      script: './apps/web-client/.next/standalone/apps/web-client/server.js',
       env: {
         NODE_ENV: 'production',
         APP_ENV: 'production',
